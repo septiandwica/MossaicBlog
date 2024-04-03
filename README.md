@@ -22,10 +22,6 @@ cp .env.example .env
 ```
 
 ```bash
-cp .env.example .env
-```
-
-```bash
 php artisan key:generate
 ```
 
