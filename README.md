@@ -9,7 +9,6 @@
 
 ## Installation
 
-
 ```bash
 git clone https://github.com/septiandwica/MossaicBlog.git
 ```
@@ -30,13 +29,11 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-set the db to 
-- first create database msyql
-- connect the mysql to laravel via .env
+set the db to
+
+-   first create database msyql
+-   connect the mysql to laravel via .env
 
 ```bash
 php artisan migrate --seed
 ```
-
-## 
-
