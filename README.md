@@ -7,9 +7,32 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Instalasi
+## Installation
 
 
 ```bash
 composer install
 ```
+
+```bash
+cp .env.example .env
+```
+
+```bash
+cp .env.example .env
+```
+
+```bash
+php artisan key:generate
+```
+
+set the db to 
+- first create database msyql
+- connect the mysql to laravel via .env
+
+```bash
+php artisan migrate --seed
+```
+
+## 
+
