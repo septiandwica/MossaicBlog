@@ -11,6 +11,10 @@
 
 
 ```bash
+git clone https://github.com/septiandwica/MossaicBlog.git
+```
+
+```bash
 composer install
 ```
 
