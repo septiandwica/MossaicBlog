@@ -6,18 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\FePage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\auth;
 use Illuminate\Support\Facades\Hash;
 
 
-class AuthController extends Controller
+class authController extends Controller
 {
     public function register(){
         $getPage = FePage::getSlug('Register');
         $data['meta_tit'] = !empty($getPage) ? $getPage->meta_title : '';
         $data['meta_desc'] = !empty($getPage) ? $getPage->meta_description : '';
         $data['meta_keys'] = !empty($getPage) ? $getPage->meta_keywords : '';
-        return view("Auth/register", $data);
+        return view("auth/register", $data);
     }
     
     public function registerSave(Request $request)
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $data['meta_tit'] = !empty($getPage) ? $getPage->meta_title : '';
         $data['meta_desc'] = !empty($getPage) ? $getPage->meta_description : '';
         $data['meta_keys'] = !empty($getPage) ? $getPage->meta_keywords : '';
-        return view('Auth/login' , $data);
+        return view('auth/login' , $data);
     }
     public function loginAction(Request $request)
     {
@@ -66,7 +66,7 @@ class AuthController extends Controller
             }
         }
         
-        if (Auth::attempt($credentials, $remember)) {
+        if (auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard')->with('success', 'Login Success');
         } else {
@@ -77,7 +77,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('web')->logout();
+        auth::guard('web')->logout();
   
         $request->session()->invalidate();
   
