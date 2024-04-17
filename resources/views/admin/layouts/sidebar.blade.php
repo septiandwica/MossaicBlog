@@ -10,7 +10,7 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard/frontendpage/list', 'dashboard/frontendpage/add', 'dashboard/frontendpage/edit') ? '' : 'collapsed' }}" href="{{ route('dashboard/frontendpage/list') }}">
                 <i class="bi bi-gear"></i>
-                <span>Page</span>
+                <span>Page SEO</span>
             </a>
         </li>
         <li class="nav-item">
@@ -21,13 +21,13 @@
         </li>
         <li class="nav-item">
             <a class="nav-link {{ Route::is('dashboard/category/list', 'dashboard/category/add', 'dashboard/category/edit') ? '' : 'collapsed' }}" href="{{ route('dashboard/category/list') }}">
-                <i class="bi bi-envelope"></i>
+                <i class="bi bi-folder"></i>
                 <span>Category</span>
             </a>
         </li>
         @endif
         <li class="nav-item">
-            <a class="nav-link {{ Route::is('dashboard/blog/list') ? '' : 'collapsed' }}" href="{{ url('dashboard/blog/list') }}">
+            <a class="nav-link {{ Route::is('dashboard/blog/list', 'dashboard/blog/add', 'dashboard/blog/edit') ? '' : 'collapsed' }}" href="{{ route('dashboard/blog/list') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Blog</span>
             </a>

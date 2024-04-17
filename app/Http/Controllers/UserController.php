@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -46,13 +49,12 @@ class UserController extends Controller
     {
         $request->validate([ 
             'name' => 'required',
-            'username' => 'required|string|max:255|unique:users',
+            'username' => 'required',
             'email' => 'required|email',
         ]);
         $user = User::getSingle($id);
 
         $user->name = trim($request->name);
-        $user->email = trim($request->email);
         $user->username = trim($request->username);
         
         if (!empty($request->password)) {
@@ -63,8 +65,6 @@ class UserController extends Controller
         }
 
         $user->role_id = 2;
-        $user->instagram = trim($request->instagram_username);
-        $user->linkedin = trim($request->linkedin_username);
         $user->save();
 
         return redirect("dashboard/users/list")->with("success", "User updated successfully.");
@@ -79,6 +79,57 @@ class UserController extends Controller
             return redirect()->back()->with("success", "User deleted successfully.");
         } else {
             return redirect()->back()->with("error", "User not found.");
+        }
+    }
+
+    public function accountsettings(){
+        $data['getUser'] = User::getSingle(Auth::user()->id);
+        return view("admin.users.profile.account", $data);
+    }
+    public function accountupdate(Request $request){
+        $getUser = User::getSingle(Auth::user()->id);
+        $getUser->name = $request->name;
+        $getUser->username = $request->username;
+        $getUser->instagram = $request->instagram_username;
+        $getUser->linkedin = $request->linkedin_username;
+        $getUser->about = $request->about;
+
+       
+
+
+        if(!empty($request->file('image_file'))){
+            if(!empty($getUser->image_file) && file_exists('upload/users/'. $getUser->image_file)){
+                unlink('upload/users/'. $getUser->image_file);
+            }
+            $ext = $request->file('image_file')->getClientOriginalExtension();
+            $file = $request->file('image_file');
+            $filename = Str::random(20).'.'.$ext;
+            $file->move('upload/users/', $filename);
+
+            $getUser->image_file = $filename;
+        }
+        $getUser->save();
+
+        return redirect()->back()->with("success","Your Account Successfully Updated");
+    }
+    public function changepassword(){
+        return view("admin.users.profile.account");
+    }
+    public function updatepassword(Request $request){
+
+        $getUser = User::getSingle(Auth::user()->id);
+        if(Hash::check($request->currentpassword, $getUser->password)){
+            if ($request->newpassword == $request->confirmpassword) {
+                $getUser->password = Hash::make($request->newpassword);
+                $getUser->save();
+
+                return redirect()->back()->with("success","Your Password Successfully Changed");
+            }
+            else{
+                return redirect()->back()->with("error","Confirm Password does not match with New Password");
+            }
+        }else{
+            return redirect()->back()->with("error","Old Password does not match in Database");
         }
     }
 }

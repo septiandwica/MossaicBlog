@@ -5,13 +5,18 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>{{ !empty($meta_tit) ? $meta_tit : 'Dashboard'}}</title>
+  @if(!empty($meta_desc))
+  <meta name="description" content="{{ $meta_desc}}"/>
+  @endif @if(!empty($meta_tit))
+  <meta name="title" content="{{ $meta_tit}}"/>
+  @endif @if(!empty($meta_keys))
+  <meta name="keywords" content="{{ $meta_keys}}"/>
+  @endif
 
   <!-- Favicons -->
-  <link href="{{ asset('Admin/assets/img/favicon.png')}}" rel="icon">
-  <link href="{{ asset('Admin/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  <link href="{{ asset('frontend/assets/images/logo/icon.png')}}" rel="icon">
+  <link href="{{ asset('frontend/assets/images/logo/icon.png')}}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -44,8 +49,8 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="{{ asset('admin/assets/img/logo.png')}}" alt="">
-                  <span class="d-none d-lg-block">BlogAdmin</span>
+                  <img src="{{ asset('frontend/assets/images/logo/icon.png')}}" alt="">
+                  <span class="d-none d-lg-block">MossaicBlog Dashboard</span>
                 </a>
               </div><!-- End Logo -->
 

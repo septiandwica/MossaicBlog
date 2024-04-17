@@ -1,12 +1,13 @@
 @extends('admin.layouts.app') @section('contents')
+
 <div class="pagetitle">
-    <h1>Add Category</h1>
+    <h1>Add Page</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="{{ route('dashboard')}}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item">Category</li>
+            <li class="breadcrumb-item">Page</li>
             <li class="breadcrumb-item active">Add</li>
         </ol>
     </nav>
@@ -16,22 +17,36 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Category Data</h5>
+                    <h5 class="card-title">Page Data</h5>
 
                     <!-- Vertical Form -->
-                    <form class="row g-3" action="{{route('dashboard/category/add')}}" method="POST">      
-                        {{csrf_field()}}               
+                    <form class="row g-3" action="{{route('dashboard/frontendpage/add')}}" method="POST">      
+                        {{csrf_field()}}       
                         <div class="col-12 flex-column">
-                            <label for="inputName4" class="form-label">Name *</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="inputName4">
-                            @error('name')
+                            <label for="inputName4" class="form-label">Slug *</label>
+                            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" id="inputName4">
+                            @error('slug')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>        
+                        <div class="col-12 flex-column">
+                            <label for="inputName4" class="form-label">Title *</label>
+                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="inputName4">
+                            @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-12 flex-column">
                             <label for="inputName4" class="form-label">Meta Title *</label>
-                            <input type="text" name="meta_title" class="form-control @error('meta_title') is-invalid @enderror" id="inputName4">
-                            @error('meta_title')
+                            <input type="text" name="meta_tit" class="form-control @error('meta_tit') is-invalid @enderror" id="inputName4">
+                            @error('meta_tit')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12 flex-column">
+                            <label for="inputName4" class="form-label">Description</label>
+                            <textarea name="desc" class="tinymce-editor  form-control @error('desc') is-invalid @enderror" id="" cols="30" rows="3" style="resize: none;"></textarea>
+                            @error('desc')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -49,29 +64,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12 flex-column">
-                            <label for="inputEmail4" class="form-label">Image Banner</label>
-                            <input type="file" name="image_file" class="form-control @error('image_file') is-invalid @enderror" id="inputEmail4">
-                            <p class="my-2" style="font-size: 12px; color:red;">*Make sure the file is in png format</p>
-                            @error('image_file')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        
-                        <hr>
-                        <div class="col-12 flex-column">
-                            <label for="inputName4" class="form-label">Status *</label>
-                            <select class="form-control" name="status" id="">
-                                <option selected disabled>Set Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            @error('meta_keys')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                    
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
@@ -84,16 +76,11 @@
 </section>
 
 @endsection
-<script>
-    function previewImage(input) {
-        var preview = document.getElementById('preview');
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
+@section('scripts')
+    <script src="{{ asset('admin/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+    <script src="{{ asset('admin/assets/vendor/tagstyle/bootstrap-tagsinput.js')}}"></script>
+
+    <script type="text/javascript">
+        $("#tagsinput").tagsinput();
+    </script>
+@endsection

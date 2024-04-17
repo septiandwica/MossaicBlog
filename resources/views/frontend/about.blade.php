@@ -24,71 +24,61 @@
 
     <!-- About Video Area Start -->
    <!-- About Video Area End -->
-
-    <div class="about-history-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="single-platform-box" data-aos="fade-up">
-                        <div class="platform-icon">
-                            <img src="{{ asset('frontend/assets/images/icons/open-platform.png')}}" alt="">
-                        </div>
-                        <div class="platform-content">
-                            <h3 class="title">Open Platform</h3>
-                            <p>Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry has been
-                                the industry's standard dummy text ever
-                                since the 1500s when an unknown printer
-                                took galley type and scrambled.
-                            </p>
-                            <p>Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry has been
-                                the industry's standard.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="single-platform-box platform-d-flex">
-                        <div class="platform-content-box" data-aos="fade-up">
-                            <div class="platform-icon">
-                                <img src="{{ asset('frontend/assets/images/icons/digital-publishing.png')}}" alt="">
-                            </div>
-                            <div class="platform-content">
-                                <h3 class="title">Digital Publishing</h3>
-                                <p>Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry has been
-                                    the industry's standard dummy text ever
-                                    since the 1500s when an unknown printer
-                                    took galley type and scrambled.
-                                </p>
-                                <p>Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry has been
-                                    the industry's standard.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="plateform-image-box" data-aos="fade-up">
-                            <div class="plateforem-image">
-                                <img src="{{ asset('frontend/assets/images/banners/about-ex-share.jpg')}}" alt="">
-                                <div class="platform-box-button">
-                                    <a href="contact-us.html" class="btn-primary btn-large">Share your thinking <i class="icofont-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+   <div class="team-area section-space--ptb_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center" data-aos="fade-up">
+                    <h6 class="sub-title-primary mb-20">Meet Our Team Members</h6>
+                    <h2 class="title">Leadership & Experienced Team</h2>
                 </div>
             </div>
         </div>
+        <div class="row">
+            @foreach ($founders as $founder)
+                <div class="col-lg-3 col-md-6 col-sm-6" data-aos="fade-up">
+                    <div class="single-team-area">
+                        <div class="team-thum">
+                            <img src="{{ $founder->getProfile() }}" style="border-radius: 10px" alt="">
+                        </div>
+                        <div class="team-content">
+                            <div class="team-share-top">
+                                <a href="#" class="shate-action-button"><i class="icofont-close"></i></a>
+                                
+                                <ul class="team-social-share">
+                                    @if(!empty($founder->instagram))
+                                    <li><a target="_blank" href="{{'https://instagram.com/'. $founder->instagram}}"><i class="icofont-instagram"></i></a></li>
+                                    @endif
+                                    @if(!empty($founder->linkedin))
+                                    <li><a target="_blank" href="{{'https://linkedin.com/in/'. $founder->linkedin }}"><i class="icofont-linkedin"></i></a></li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <div class="team-member-info">
+                                <h6 class="name-title">{{ $founder->name }}</h6> 
+
+                                <p class="desination">Founder</p> 
+                            </div>
+                        </div>
+                    </div></div>
+            @endforeach
+        </div>
+        
     </div>
+</div>
 
     <!-- Bunzo History Area Start -->
-    <div class="bunzo-history-area section-space--pt_60">
-        <div class="container">
+    <div class="bunzo-history-area section-space--pt_60 mb-5">
+        @if(!empty($desc))
+        {!! $desc !!}
+        @endif
+
+        {{-- <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="bunzo-row">
                         <div class="bunzo-col-6" data-aos="fade-up">
+                            
                             <h2 class="bunzo-history-title">You Can <span class="f-w-bold">Read</span> And <span class="f-w-bold">Write</span> With Bunzo.</h2>
                         </div>
                         <div class="bunzo-col-6">
@@ -114,121 +104,18 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- Bunzo History Area End -->
 
     <!-- Team Aare Start -->
-    <div class="team-area section-space--ptb_100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title text-center" data-aos="fade-up">
-                        <h6 class="sub-title-primary mb-20">Meet Our Team Members</h6>
-                        <h2 class="title">Leadership & Experienced Team</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <!-- Single Team Area Start -->
-                    <div class="single-team-area" data-aos="fade-up">
-                        <div class="team-thum">
-                            <img src="{{ asset('frontend/assets/images/team/team-1.jpg')}}" alt="">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-share-top">
-                                <a href="#" class="shate-action-button"><i class="icofont-close"></i></a>
-                                <ul class="team-social-share">
-                                    <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icofont-skype"></i></a></li>
-                                    <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="team-member-info">
-                                <h6 class="name-title">Luella Bernstein</h6>
-                                <p class="desination">Founder</p>
-                            </div>
-                        </div>
-                    </div><!-- Single Team Area End -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6" data-aos="fade-up">
-                    <!-- Single Team Area Start -->
-                    <div class="single-team-area">
-                        <div class="team-thum">
-                            <img src="{{ asset('frontend/assets/images/team/team-2.jpg')}}" alt="">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-share-top">
-                                <a href="#" class="shate-action-button"><i class="icofont-close"></i></a>
-                                <ul class="team-social-share">
-                                    <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icofont-skype"></i></a></li>
-                                    <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="team-member-info">
-                                <h6 class="name-title">Luella Bernstein</h6>
-                                <p class="desination">Founder</p>
-                            </div>
-                        </div>
-                    </div><!-- Single Team Area End -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6" data-aos="fade-up">
-                    <!-- Single Team Area Start -->
-                    <div class="single-team-area">
-                        <div class="team-thum">
-                            <img src="{{ asset('frontend/assets/images/team/team-3.jpg')}}" alt="">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-share-top">
-                                <a href="#" class="shate-action-button"><i class="icofont-close"></i></a>
-                                <ul class="team-social-share">
-                                    <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icofont-skype"></i></a></li>
-                                    <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="team-member-info">
-                                <h6 class="name-title">Luella Bernstein</h6>
-                                <p class="desination">Founder</p>
-                            </div>
-                        </div>
-                    </div><!-- Single Team Area End -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6" data-aos="fade-up">
-                    <!-- Single Team Area Start -->
-                    <div class="single-team-area">
-                        <div class="team-thum">
-                            <img src="{{ asset('frontend/assets/images/team/team-4.jpg')}}" alt="">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-share-top">
-                                <a href="#" class="shate-action-button"><i class="icofont-close"></i></a>
-                                <ul class="team-social-share">
-                                    <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icofont-skype"></i></a></li>
-                                    <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="team-member-info">
-                                <h6 class="name-title">Luella Bernstein</h6>
-                                <p class="desination">Founder</p>
-                            </div>
-                        </div>
-                    </div><!-- Single Team Area End -->
-                </div>
-                
-
-            </div>
-        </div>
-    </div>
+    
     <!-- Team Aare End -->
 
 
-    <div class="bg-gray">
+    <div class="bg-gray pb-5">
         <!-- Testimonial Area Start -->
-        <div class="testimonial-area section-space--pt_100">
+        <div class="testimonial-area  section-space--pt_100">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -336,36 +223,7 @@
         </div>
         <!-- Testimonial Area End -->
 
-        <!-- Trending Topic Area Start -->
-        <div class="trending-topic-area section-space--pb_80">
-            <div class="container">
-                <!-- Newsletter Subscribe Area Start -->
-                <div class="newsletter-subscribe-inner section-space--mt_80">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3">
-                            <div class="section-title mb-4">
-                                <h3>Subscribe For Newsletter</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="newsletter-input-box">
-                                <input class="newsletter-input" type="text" placeholder="Enter your email">
-                                <div class="button-box">
-                                    <a href="#" class="btn-primary btn-large">Subscribe Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="newsletter-inner-image">
-                        <img class="newsletter-image-01" src="assets/images/shap/1-newsletter.png" alt="">
-                        <img class="newsletter-image-02" src="assets/images/shap/2-newsletter.png" alt="">
-                    </div>
-                </div>
-                <!-- Newsletter Subscribe Area End -->
-
-            </div>
-        </div>
-        <!-- Trending Topic Area End -->
+       
     </div>
 
 </div>

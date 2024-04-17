@@ -16,7 +16,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    
+    protected $table = 'users';
     protected $fillable = [
         'username',
         'name',
@@ -27,6 +27,10 @@ class User extends Authenticatable
     protected function role()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+    public function blogs()
+    {
+    return $this->hasMany(Blog::class, 'user_id'); 
     }
 
     /**
@@ -55,6 +59,14 @@ class User extends Authenticatable
     {
         return self::find($id);
     }
+    static public function getFounders()
+    {
+        return self::select('users.*')
+            ->where('role_id', '=', '1') 
+            ->where('is_deleted', '=', '0')
+            ->get();
+
+    }
     static public function getRecordUser(){
         return self::select('users.*')
         ->where('role_id','=','2')
@@ -62,4 +74,13 @@ class User extends Authenticatable
         ->orderBy('id','desc')
         ->paginate(10);
     }
+    
+    public function getProfile(){
+        if(!empty($this->image_file) && file_exists('upload/users/'.$this->image_file)){
+            return url('upload/users/'.$this->image_file);
+        }else{
+            return url('upload/users/userplaceholder.jpg');;
+        }
+    }
+
 }

@@ -90,6 +90,15 @@ class BlogController extends Controller
         $blog->meta_keywords = trim($request->meta_keys);
         $blog->status = $request->status; 
 
+        $slug = Str::slug($request->title); 
+        $checkSlug = Blog::where('slug','=', $slug)->first();
+        if(!empty($checkSlug)){
+            $dbslug = $slug.'-'.$blog->id; 
+        }else{
+            $dbslug = $slug;
+        }
+        $blog->slug = $dbslug;
+
         if(!empty($request->file('image_file'))){
             if(!empty($blog->getImage())){
                 unlink('upload/blogs/'.$blog->image_file);
@@ -97,7 +106,7 @@ class BlogController extends Controller
 
             $ext = $request->file('image_file')->getClientOriginalExtension();
             $file = $request->file('image_file');
-            $filename = $blog->slug.'.'.$ext;
+            $filename = $dbslug.'.'.$ext;
             $file->move('upload/blogs', $filename);
 
             $blog->image_file = $filename;

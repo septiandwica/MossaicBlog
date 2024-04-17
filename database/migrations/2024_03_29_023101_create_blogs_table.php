@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blogs', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->foreignId('category_id')->index()->constrained();
             $table->foreignId('user_id')->index()->constrained();
             $table->string('title');

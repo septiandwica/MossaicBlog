@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 @section('contents')
+
 <div class="pagetitle">
     <h1>Blog List</h1>
     <nav>
@@ -20,13 +21,15 @@
                 <div class="card-body table-responsive">
                     
                     <h5 class="card-title ">Blog List
-                        <a href="{{route('dashboard/blog/add')}}" class="btn btn-primary float-end">Add New</a>
+                        <a href="{{route('dashboard/blog/add')}}" class="btn btn-primary float-end">Write Now</a>
                     </h5>
                     <form class="row my-3" action="{{ route('dashboard/blog/list') }}" method="GET">
+                        @if (Auth::user()->role_id== 1)
                         <div class="col-md-2">
                             <label class="form-label">Author</label>
                             <input type="text" class="form-control" name="author" value="{{ request()->input('author') }}" >
                         </div>
+                        @endif
                         <div class="col-md-4">
                             <label class="form-label">Title</label>
                             <input type="text" name="title" class="form-control" value="{{ request()->input('title') }}">
@@ -58,7 +61,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Image</th>
+                                @if (Auth::user()->role_id== 1)
                                 <th scope="col">Author</th>
+                                @endif
                                 <th scope="col">Title</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Status</th>
@@ -75,7 +80,9 @@
                                         <img src="{{ $value->getImage()}}" style="width: 200px" alt="">
                                     @endif
                                 </td>
+                                @if (Auth::user()->role_id== 1)
                                 <td>{{ $value->author }}</td>
+                                @endif
                                 <td>{{ $value->title}}</td>
                                 <td>{{ $value->category_name}}</td>
 

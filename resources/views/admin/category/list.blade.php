@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 @section('contents')
+
 <div class="pagetitle">
     <h1>Category List</h1>
     <nav>

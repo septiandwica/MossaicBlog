@@ -5,6 +5,8 @@
 @endsection
 @section('contents')
 
+@include('admin.layouts.sessionmessage')
+
 <div class="pagetitle">
     <h1>Add Blog</h1>
     <nav>

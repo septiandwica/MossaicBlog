@@ -20,9 +20,30 @@ class RolesTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'role_id' => 1,
-                'name' => 'Tian Web Code',
-                'username' => 'tianwebcode',
-                'email' => 'admin@tianwebcode.my.id',
+                'name' => 'Tian Code',
+                'username' => 'tiancode',
+                'email' => 'mail@tiancode.my.id',
+                'password' => bcrypt('12341234'),
+            ],
+            [
+                'role_id' => 1,
+                'name' => 'Meily Deswita',
+                'username' => 'meily.deswita',
+                'email' => 'meilydeswita@tiancode.my.id',
+                'password' => bcrypt('12341234'),
+            ],
+            [
+                'role_id' => 1,
+                'name' => 'Samuel Sasaki',
+                'username' => 'samuel.sasaki',
+                'email' => 'samuel.sasaki@tiancode.my.id',
+                'password' => bcrypt('12341234')
+            ],
+            [
+                'role_id' => 1,
+                'name' => 'Rachel Simbolon',
+                'username' => 'rachel.simbolon',
+                'email' => 'rachelsimbolon@tiancode.my.id',
                 'password' => bcrypt('12341234')
             ]
         ]);

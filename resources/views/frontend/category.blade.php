@@ -10,6 +10,12 @@
                     <ul class="breadcrumb-list">
                         <li class="breadcrumb-item"><a href="{{ route('home')}}">Home</a></li>
                         <li class="breadcrumb-item active">Category</li>
+                        @if (!empty($bc_tit))
+                        <li class="breadcrumb-item active">{{ $bc_tit }}</li>
+                            
+                        @else
+                        <li class="breadcrumb-item active">All Article</li>
+                        @endif
                     </ul>
                     <!-- breadcrumb-list end -->
                 </div>
@@ -24,26 +30,30 @@
     <!-- Blog Details Wrapper Start -->
     <div class="blog-details-wrapper section-space--ptb_80">
         <div class="container">
+            @if ($getArticle->isNotEmpty())
             <div class="row row--17">
+                @foreach ($getArticle as $item)
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <!-- Single Following Post Start -->
                     <div class="single-following-post" data-aos="fade-up">
-                        <a href="{{ route('article')}}" class="following-post-thum">
-                            <img src="assets/images/blog/01.jpg" alt="">
+                        <a href="{{ route('article.detail', $item->slug) }}" class="following-post-thum">
+                            <img src="{{$item->getImage()}}" alt="">
                         <div class="following-post-content">
                             <div class="following-blog-post-top">
                                 <div class="trending-blog-post-category">
-                                    <a href="#" class="business">Business</a>
+                                    <a href="#" class="business">{{ $item->category_name}}</a>
                                 </div>
                                 <div class="following-blog-post-author">
-                                    By <a href="#">Kathy Ramirez</a>
+                                    By <a href="#">{{ $item->author}}</a>
                                 </div>
                             </div>
                             <h5 class="following-blog-post-title">
-                                <a href="{{ route('article')}}">Customize your WooCommerce
-                                    store with countless design
+                                <a href="{{ route('article.detail', $item->slug) }}">{{ $item->title}}
                                 </a>
                             </h5>
+                            <div class="dec mt-2">
+                                {!! Str::limit(strip_tags($item->description), 50) !!}
+                            </div>
                             <div class="following-blog-post-meta">
                                 <div class="post-meta-left-side">
                                     <span class="post-date">
@@ -62,221 +72,29 @@
 
                     </div><!-- Single Following Post End -->
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <!-- Single Following Post Start -->
-                    <div class="single-following-post" data-aos="fade-up">
-                        <a href="blog-details.html" class="following-post-thum">
-                            <img src="assets/images/blog/02.jpg" alt="">
-                        </a>
-                        <div class="following-post-content">
-                            <div class="following-blog-post-top">
-                                <div class="trending-blog-post-category">
-                                    <a href="#" class="business">Business</a>
-                                </div>
-                                <div class="following-blog-post-author">
-                                    By <a href="#">Kathy Ramirez</a>
-                                </div>
-                            </div>
-                            <h5 class="following-blog-post-title">
-                                <a href="blog-details.html">With WooLentor's drag-and-drop interface for creating
-                                    custom..
-
-                                </a>
-                            </h5>
-                            <div class="following-blog-post-meta">
-                                <div class="post-meta-left-side">
-                                    <span class="post-date">
-                                    <i class="icofont-ui-calendar"></i> 
-                                    <a href="#">03 April, 2023</a>
-                                </span>
-                                    <span>10 min read</span>
-                                </div>
-                                <div class="post-meta-right-side">
-                                    <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
-                                    <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Single Following Post End -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <!-- Single Following Post Start -->
-                    <div class="single-following-post" data-aos="fade-up">
-                        <a href="blog-details.html" class="following-post-thum">
-                            <img src="assets/images/blog/03.jpg" alt="">
-                        </a>
-                        <div class="following-post-content">
-                            <div class="following-blog-post-top">
-                                <div class="trending-blog-post-category">
-                                    <a href="#" class="business">Business</a>
-                                </div>
-                                <div class="following-blog-post-author">
-                                    By <a href="#">Kathy Ramirez</a>
-                                </div>
-                            </div>
-                            <h5 class="following-blog-post-title">
-                                <a href="blog-details.html">Customize your WooCommerce
-                                    store with countless design
-                                </a>
-                            </h5>
-                            <div class="following-blog-post-meta">
-                                <div class="post-meta-left-side">
-                                    <span class="post-date">
-                                    <i class="icofont-ui-calendar"></i> 
-                                    <a href="#">03 April, 2023</a>
-                                </span>
-                                    <span>10 min read</span>
-                                </div>
-                                <div class="post-meta-right-side">
-                                    <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
-                                    <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Single Following Post End -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <!-- Single Following Post Start -->
-                    <div class="single-following-post" data-aos="fade-up">
-                        <a href="blog-details.html" class="following-post-thum">
-                            <img src="assets/images/blog/04.jpg" alt="">
-                        </a>
-                        <div class="following-post-content">
-                            <div class="following-blog-post-top">
-                                <div class="trending-blog-post-category">
-                                    <a href="#" class="business">Business</a>
-                                </div>
-                                <div class="following-blog-post-author">
-                                    By <a href="#">Kathy Ramirez</a>
-                                </div>
-                            </div>
-                            <h5 class="following-blog-post-title">
-                                <a href="blog-details.html">Customize your WooCommerce
-                                    store with countless design
-                                </a>
-                            </h5>
-                            <div class="following-blog-post-meta">
-                                <div class="post-meta-left-side">
-                                    <span class="post-date">
-                                    <i class="icofont-ui-calendar"></i> 
-                                    <a href="#">03 April, 2023</a>
-                                </span>
-                                    <span>10 min read</span>
-                                </div>
-                                <div class="post-meta-right-side">
-                                    <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
-                                    <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Single Following Post End -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <!-- Single Following Post Start -->
-                    <div class="single-following-post" data-aos="fade-up">
-                        <a href="blog-details.html" class="following-post-thum">
-                            <img src="assets/images/blog/05.jpg" alt="">
-                        </a>
-                        <div class="following-post-content">
-                            <div class="following-blog-post-top">
-                                <div class="trending-blog-post-category">
-                                    <a href="#" class="business">Business</a>
-                                </div>
-                                <div class="following-blog-post-author">
-                                    By <a href="#">Kathy Ramirez</a>
-                                </div>
-                            </div>
-                            <h5 class="following-blog-post-title">
-                                <a href="blog-details.html">WooLentor's drag-and-drop interface for creating
-                                    custom layouts in minutes.
-                                </a>
-                            </h5>
-                            <div class="following-blog-post-meta">
-                                <div class="post-meta-left-side">
-                                    <span class="post-date">
-                                    <i class="icofont-ui-calendar"></i> 
-                                    <a href="#">03 April, 2023</a>
-                                </span>
-                                    <span>10 min read</span>
-                                </div>
-                                <div class="post-meta-right-side">
-                                    <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
-                                    <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Single Following Post End -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <!-- Single Following Post Start -->
-                    <div class="single-following-post" data-aos="fade-up">
-                        <a href="blog-details.html" class="following-post-thum">
-                            <img src="assets/images/blog/06.jpg" alt="">
-                        </a>
-                        <div class="following-post-content">
-                            <div class="following-blog-post-top">
-                                <div class="trending-blog-post-category">
-                                    <a href="#" class="business">Business</a>
-                                </div>
-                                <div class="following-blog-post-author">
-                                    By <a href="#">Kathy Ramirez</a>
-                                </div>
-                            </div>
-                            <h5 class="following-blog-post-title">
-                                <a href="blog-details.html">With WooLentor's drag-and-drop creating
-                                    custom layouts in minutes.
-                                </a>
-                            </h5>
-                            <div class="following-blog-post-meta">
-                                <div class="post-meta-left-side">
-                                    <span class="post-date">
-                                    <i class="icofont-ui-calendar"></i> 
-                                    <a href="#">03 April, 2023</a>
-                                </span>
-                                    <span>10 min read</span>
-                                </div>
-                                <div class="post-meta-right-side">
-                                    <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
-                                    <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Single Following Post End -->
+                @endforeach
+               
+                
+            </div>
+            <div class="col-12 mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        {!! $getArticle->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                    </div>
                 </div>
             </div>
+            @else
+                <div class="col-12">
+                    <h4 class="text-center"> No articles found in this category. </h4>
+                </div>
+            @endif
+           
+            
         </div>
     </div> <!-- Blog Details Wrapper End -->
 
 
     <!-- Trending Topic Area Start -->
-    <div class="trending-topic-area bg-gray section-space--ptb_80">
-        <div class="container">
-            <!-- Newsletter Subscribe Area Start -->
-            <div class="newsletter-subscribe-inner section-space--mt_80" data-aos="fade-up">
-                <div class="row align-items-center">
-                    <div class="col-lg-3">
-                        <div class="section-title mb-4">
-                            <h3>Subscribe For Newsletter</h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="newsletter-input-box">
-                            <input class="newsletter-input" type="text" placeholder="Enter your email">
-                            <div class="button-box">
-                                <a href="#" class="btn-primary btn-large">Subscribe Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="newsletter-inner-image">
-                    <img class="newsletter-image-01" src="assets/images/shap/1-newsletter.png" alt="">
-                    <img class="newsletter-image-02" src="assets/images/shap/2-newsletter.png" alt="">
-                </div>
-            </div>
-            <!-- Newsletter Subscribe Area End -->
-
-        </div>
-    </div>
     <!-- Trending Topic Area End -->
 </div>
 

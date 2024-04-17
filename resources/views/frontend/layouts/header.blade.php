@@ -3,42 +3,31 @@
         <div class="container">
             <div class="row">
                 <div
-                    class="col-12 col-sm-9"
+                    class="col-12 col-sm-9 col-md-6" 
                 >
                     <div class="header-top-contact-info justify-content-md-start justify-content-center ">
                     <div class="header-top-single-contact-item justify-content-start ">
-                        <div class="header-top-contact-icon">
-                            <img
-                                src="assets/images/icons/contact-call.png"
-                                alt=""
-                            />
-                        </div>
                         <div
                             class="header-top-contact-text text-size-small"
                         >
-                            <a href="tel:62859106959787"
-                                >(+62) 8591-0695-9787</a
+                            <a class="" href="tel:62859106959787"
+                                ><i class="icofont-phone"></i>  (+62) 8591-0695-9787</a
                             >
                         </div>
                     </div>
 
                     <div class="header-top-single-contact-item">
-                        <div class="header-top-contact-icon">
-                            <img
-                                src="assets/images/icons/contact-emaill.png"
-                                alt=""
-                            />
-                        </div>
+                        
                         <div class="header-top-contact-text">
-                            <a href="mailto:address@gmail.com"
-                                >mossaicblog@tianwebcode.my.id</a
+                            <a href="mailto:mossaicblog@tiancode.my.id"
+                                ><i class="icofont-envelope"></i> mossaicblog@tiancode.my.id</a
                             >
                         </div>
                     </div>
                     </div>
                 </div>
                
-                <div class="col-12 col-sm-3">
+                <div class="col-12 col-sm-3 col-md-6">
                     <div class="header-top-right-side">
                       <p id="country">Fetching location...</p>
                       <div class="wayder">
@@ -48,7 +37,7 @@
                         <span id="temperature">Fetching weather...</span>
                       </div>
                     </div>
-                  </div>
+                </div>
             
             </div>
         </div>
@@ -59,7 +48,7 @@
                 <div class="col-12 text-center ">
                     <div class="logo">
                         <a href="index.html">
-                            <img
+                            <img width="161px" height="48px"
                                 src="{{ asset('frontend/assets/images/logo/logo.png')}}"
                                 alt=""
                             />
@@ -98,6 +87,9 @@
                     </ul>
                 </div>
                 <div class="col-lg-8 col-3">
+                    @php
+                        $getCategoryHead = App\Models\Category::getCategoryFront();
+                    @endphp
                     
                     <div class="main-menu-area text-end">
                         <nav class="navigation-menu">
@@ -112,20 +104,21 @@
                                         ><span>About</span></a
                                     >
                                 </li>
-                                <li class="has-children">
-                                    <a href="#"
-                                        ><span>Category</span></a
-                                    >
+                                <li class="has-children @if(request()->routeIs('category')) active @endif">
+                                    <a href="{{route('category')}}">
+                                        <span>Category</span>
+                                    </a>
                                     <ul class="submenu">
-                                        <li>
-                                            <a href="{{ route('category')}}"
-                                                ><span
-                                                    >Tech</span
-                                                ></a
-                                            >
-                                        </li>
+                                        @foreach ($getCategoryHead as $categoryhead)
+                                            <li class="@if(request()->routeIs('category.show', $categoryhead->slug)) active @endif">
+                                                <a href="{{ route('category.show', $categoryhead->slug) }}">
+                                                    <span>{{ $categoryhead->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                </li>           
+                                </li>
+                                 
                                 
                                 @if (Route::has('login'))
                     @auth
@@ -200,27 +193,29 @@
             <nav class="offcanvas-navigation">
                 <ul>
                     <li >
-                        <a href="index.html">Home</a>
-                       
-                    </li>
-                    <li>
-                        <a href="about-us.html"><span>About</span></a>
-                    </li>
-                    <li class="has-children">
-                        <a href="#">Category</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="category.html"
-                                    ><span>Category List</span></a
-                                >
-                            </li>
-                            <li>
-                                <a href="category-grid.html"
-                                    ><span>Category Grid</span></a
-                                >
-                            </li>
-                        </ul>
-                    </li>
+                                    <a href="{{ route('home')}}"
+                                        ><span>Home</span></a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="{{ route('about')}}"
+                                        ><span>About</span></a
+                                    >
+                                </li>
+                                <li class="has-children @if(request()->routeIs('category')) active @endif">
+                                    <a href="{{route('category')}}">
+                                        <span>Category</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        @foreach ($getCategoryHead as $categoryhead)
+                                            <li class="@if(request()->routeIs('category.show', $categoryhead->slug)) active @endif">
+                                                <a href="{{ route('category.show', $categoryhead->slug) }}">
+                                                    <span>{{ $categoryhead->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                     @if (Route::has('login'))
                     @auth
                     <li>
@@ -252,36 +247,26 @@
 
 
   <script>
-  // Get user's location using Geolocation API
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
+   if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition((position) => {
+       const latitude = position.coords.latitude;
+       const longitude = position.coords.longitude;
 
-      // Replace with your weatherapi.com API key
-      const apiKey = '1ac036f0766c4928bba174434243003'; // Replace with your actual key
-      const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`;
-
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const country = data.location.country;
-          const temperature = Math.round(data.current.temp_c); // Get temperature in Celsius
-          document.getElementById('country').textContent =  country;
-          document.getElementById('temperature').textContent = temperature + '° C';
-        })
-        .catch(error => {
-          console.error('Error fetching weather data:', error);
-          document.getElementById('temperature').textContent = 'Weather unavailable';
-        });
-    }, (error) => {
-      console.error('Geolocation error:', error);
-      document.getElementById('country').textContent = 'Location unavailable';
-      document.getElementById('temperature').textContent = 'Weather unavailable';
-    });
-  } else {
-    console.error('Geolocation is not supported by this browser.');
-    document.getElementById('country').textContent = 'Location unavailable';
-    document.getElementById('temperature').textContent = 'Weather unavailable';
-  }
+       fetch(`/fetch-weather?latitude=${latitude}&longitude=${longitude}`)
+         .then(response => response.json())
+         .then(data => {
+           document.getElementById('country').textContent = data.country;
+           document.getElementById('temperature').textContent = data.temperature;
+         })
+         .catch(error => {
+           console.error('Error:', error);
+           document.getElementById('country').textContent = 'Location unavailable';
+           document.getElementById('temperature').textContent = 'Weather unavailable';
+         });
+     });
+   } else {
+     console.error('Geolocation is not supported by this browser.');
+     document.getElementById('country').textContent = 'Location unavailable';
+     document.getElementById('temperature').textContent = 'Weather unavailable';
+   }
   </script>

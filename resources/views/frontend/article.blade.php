@@ -1,143 +1,81 @@
 @extends('frontend.layouts.app') 
 
 @section('contents')
+
 <div class="site-wrapper-reveal">
     <!-- Blog Details Wrapper Start -->
     <div class="blog-details-wrapper section-space--ptb_80">
         <div class="container">
             <div class="row row--17">
-                <div class="blog-details-col-8">
+                <div class="blog-details-col-8 article">
                     <!-- blog details Post Start -->
                     <div class="blog-details-post-wrap">
-                        <div class="blog-details-thum">
-                            <img src="{{ asset('frontend/assets/images/blog/blog-details-1.jpg')}}" alt="">
+                        <div class="blog-details-thum text-center">
+                            @if(!@empty($articledetail->getImage()))
+                            <img class="rounded" src="{{ $articledetail->getImage()}}" alt="" loading="lazy">
+                            @endif
                         </div>
                         <div class="blog-details-post-content">
                             <div class="blog-details-meta-box">
                                 <div class="post-meta-left-side mb-2">
                                     <div class="trending-blog-post-category">
-                                        <a href="#">Business</a>
+                                        <a class="business" href="#">{{ $articledetail ->category_name }}</a>
                                     </div>
                                     <div class="following-blog-post-author">
-                                        By <a href="#">Kathy Ramirez</a>
+                                        By <a href="#">{{ $articledetail ->author }}</a>
                                     </div>
                                 </div>
 
                                 <div class="post-mid-side mb-2">
                                     <span class="post-meta-left-side">
-                                    <span class="post-date">
-                                        <i class="icofont-ui-calendar"></i> 
-                                        <a href="#">03 April, 2023</a>
-                                    </span>
+                                        <span class="post-date">
+                                            <i class="icofont-ui-calendar"></i> 
+                                            <a href="#">{{ $articledetail->created_at->format('M d, Y') }}</a>
+                                        </span>
                                     </span>
                                     <span>10 min read</span>
                                 </div>
 
-                                <div class="post-meta-right-side mb-2">
-                                    <a href="#"><img src="assets/images/icons/small-bookmark.png" alt="" /></a>
-                                    <a href="#"><img src="assets/images/icons/heart.png" alt="" /></a>
-                                </div>
                             </div>
                             <h3 class="following-blog-post-title">
-                                <a href="#">Create a custom checkout page in minutes and Increase your
-                                    sales with WooLentor
+                                <a href="#">{{ $articledetail ->title }}
                                 </a>
                             </h3>
 
                             <div class="post-details-text">
+                                <span>
+                                    {!! $articledetail ->description !!}
 
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu stry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scramb led
-                                    it to make a type specimen book.
-                                </p>
+                                </span>
 
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing
-                                    Lorem Ipsum passages desktop publishing software.
-                                </p>
+                                
 
-                                <h3 class="title mb-3">WooLentor is a powerful WordPress plugin for WooCommerce</h3>
-
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu stry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scramb led
-                                    it to make a type specimen book.
-                                </p>
-
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing
-                                    Lorem Ipsum passages desktop publishing software.
-                                </p>
-
-                                <h3 class="title mb-3"> Create a custom checkout page in minutes and Increase yoursales with WooLentor</h3>
-
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing
-                                    Lorem Ipsum passages desktop publishing software.
-                                </p>
-
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing
-                                    Lorem Ipsum passages desktop publishing software.
-                                </p>
-
-                                <div class="video-banner-area video-popup mb-4">
-
-                                    <a href="https://www.youtube.com/watch?v=9No-FiEInLA" class="video-link mt-30">
-                                        <div class="single-popup-wrap">
-                                            <img class="img-fluid" src="assets/images/blog/blog-details-video.jpg" alt="">
-                                            <div class="ht-popup-video video-button">
-                                                <div class="video-mark">
-                                                    <div class="wave-pulse wave-pulse-1"></div>
-                                                    <div class="wave-pulse wave-pulse-2"></div>
-                                                </div>
-                                                <div class="video-button__two">
-                                                    <div class="video-play">
-                                                        <span class="video-play-icon"></span>
-                                                    </div>
-                                                </div>
+                                <div class="blog-details-tag-and-share-area ">
+                                    <div class="col">
+                                        <hr>
+                                        <h4>Tag</h4>
+                                        <br>
+                                        <div class="col">
+                                            @if(!empty($articledetail->getTags->count()))
+                                            <div class="post-tag">
+                                                @php
+                                                    function generateRandomButtonClass() {
+                                                        $buttonClasses = [
+                                                            'primary', 'bg-2', 'bg-3 ', 'bg-4 ', 'bg-5 ', 'bg-6'
+                                                        ];
+                                                        return $buttonClasses[rand(0, count($buttonClasses) - 1)];
+                                                    }
+                                                @endphp
+                                                @foreach ($articledetail->getTags as $tag)
+                                                <a id="keys" href="{{ route('article.tag', ['tag' => urlencode($tag->name)]) }}" class="btn-medium rounded-4 btn-{{ generateRandomButtonClass() }} mb-2">{{ $tag->name }}</a>
+                                                @endforeach
                                             </div>
+                                        @endif
                                         </div>
-                                    </a>
-                                </div>
-
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing
-                                    Lorem Ipsum passages desktop publishing software.
-                                </p>
-
-                                <h3 class="title mb-3">All of these amazing features come at an affordable price!</h3>
-
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled
-                                    it to make a type specimen book. It has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing
-                                    Lorem Ipsum passages desktop publishing software.
-                                </p>
-
-                                <blockquote class="blockquote-box">
-                                    <p class="blockquote-text">Lorem Ipsum is simply dummy text of the printing and types industry's standard dummy text ever and since the 1500s when scrambled it to make a type specimen book.</p>
-                                </blockquote>
-
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled it to make a type specimen book. It
-                                    has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing Lorem Ipsum passages desktop
-                                    publishing software.
-                                </p>
-
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when anden unknown printer took a galley of type and scrambled it to make a type specimen book. It
-                                    has and survived not only five centuries, but also the leap into electronic typesetting, remaining essentially and unchanged. It was popularsed in the 1960 with release containing Lorem Ipsum passages desktop
-                                    publishing software.
-                                </p>
-
-                                <div class="blog-details-tag-and-share-area">
-                                    <div class="post-tag">
-                                        <a href="#" class="btn-medium fashion">Fashion</a>
-                                        <a href="#" class="btn-medium health">Health</a>
-                                        <a href="#" class="btn-medium travel">Travel</a>
                                     </div>
-                                    <ul class="social-share-area">
-                                        <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                                        <li><a href="#"><i class="icofont-skype"></i></a></li>
-                                        <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icofont-linkedin"></i></a></li>
-                                    </ul>
+                                    
+                                
+                                   
                                 </div>
 
                             </div>
@@ -158,142 +96,196 @@
                                     </div>
                                 </div>
                                 <!-- Swiper -->
+                                @if(!empty( $relatedpost->count() ))
                                 <div class="swiper-container related-post-slider-active">
                                     <div class="swiper-wrapper">
+                                        @foreach ($relatedpost as $repost)
                                         <div class="swiper-slide">
                                             <!-- Single Following Post Start -->
                                             <div class="single-related-post">
                                                 <div class="related-post-thum">
-                                                    <img src="assets/images/blog/01.jpg" alt="">
+                                                    <img src="{{ $repost->getImage()}}" alt="" loading="lazy">
                                                 </div>
                                                 <div class="following-post-content">
                                                     <div class="following-blog-post-top">
                                                         <div class="trending-blog-post-category">
-                                                            <a href="#">Business</a>
+                                                            <a class="business" href="#">{{ $repost->category_name}}</a>
                                                         </div>
                                                         <div class="following-blog-post-author">
-                                                            By <a href="#">Kathy Ramirez</a>
+                                                            By <a href="#">{{$repost->author}}</a>
                                                         </div>
                                                     </div>
                                                     <h5 class="following-blog-post-title">
-                                                        <a href="#">Customize your WooCommerce
-                                                            store with countless design
+                                                        <a href="{{ route('article.detail', $repost->slug) }}">{{$repost->title}}
                                                         </a>
                                                     </h5>
                                                     <div class="following-blog-post-meta">
                                                         <div class="post-meta-left-side">
                                                             <span class="post-date">
-                                                        <i class="icofont-ui-calendar"></i> 
-                                                        <a href="#">03 April, 2023</a>
-                                                    </span>
+                                                                <i class="icofont-ui-calendar"></i> 
+                                                                <a href="#">03 April, 2023</a>
+                                                            </span>
                                                             <span>10 min read</span>
                                                         </div>
-                                                        <div class="post-meta-right-side">
-                                                            <a href="#"><img src="assets/images/icons/small-bookmark.png" alt=""></a>
-                                                            <a href="#"><img src="assets/images/icons/heart.png" alt=""></a>
-                                                        </div>
+                                                      
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Single Following Post End -->
                                         </div>
-                                        <div class="swiper-slide">
-                                            <!-- Single Following Post Start -->
-                                            <div class="single-related-post">
-                                                <div class="related-post-thum">
-                                                    <img src="assets/images/blog/02.jpg" alt="">
-                                                </div>
-                                                <div class="following-post-content">
-                                                    <div class="following-blog-post-top">
-                                                        <div class="trending-blog-post-category">
-                                                            <a href="#">Business</a>
-                                                        </div>
-                                                        <div class="following-blog-post-author">
-                                                            By <a href="#">Kathy Ramirez</a>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="following-blog-post-title">
-                                                        <a href="#">Customize your WooCommerce
-                                                            store with countless design
-                                                        </a>
-                                                    </h5>
-                                                    <div class="following-blog-post-meta">
-                                                        <div class="post-meta-left-side">
-                                                            <span class="post-date">
-                                                        <i class="icofont-ui-calendar"></i> 
-                                                        <a href="#">03 April, 2023</a>
-                                                    </span>
-                                                            <span>10 min read</span>
-                                                        </div>
-                                                        <div class="post-meta-right-side">
-                                                            <a href="#"><img src="assets/images/icons/small-bookmark.png" alt=""></a>
-                                                            <a href="#"><img src="assets/images/icons/heart.png" alt=""></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single Following Post End -->
-                                        </div>
+                                        @endforeach
+                                        
                                     </div>
                                 </div>
+                                @else
+                                <div class="no-related-posts-message text-center">
+                                    <p>No related posts found yet. Check back later, or browse other categories!</p>
+                                </div>
+                                @endif
                             </div>
+                            
                             <!-- Related Post Area End -->
 
                             <!-- Comment Area Start -->
                             <div class="comment-area section-space--pt_60">
-                                <div class="section-title">
-                                    <h3 class="title">Leave a comment</h3>
-                                </div>
-                                <form action="#" class="comment-form-area">
+                                
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="single-input">
-                                                <input type="text" placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="single-input">
-                                                <input type="email" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="single-input">
-                                                <textarea name="textarea" placeholder="Massage"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="submit-button text-center">
-                                                <button class="btn-large btn-primary" type="submit"> Submit Now <i class="icofont-long-arrow-right"></i></button>
+                                        <div class="col-lg-12 m-auto">
+                                            <div class="comment-list-wrapper">
+                
+                                                <h3 class="widget-title mb-3">Comments ({{$articledetail->getComment()->count() }}) </h3>
+                                                <ol class="comment-list">
+                                                    <li class="comment">
+                                                        @foreach ($articledetail->getComment as $comment)
+                                                        <div class="comment-2 my-2">
+                                                            <div class="comment-author-info">
+                                                                <div class="comment-author vcard" style="max-width: 70px">
+                                                                    <img alt="" src="{{$comment->user->getProfile()}}">
+                                                                </div>
+                                                                <div class="comment-content">
+                                                                    <div class="meta">
+                                                                        <div class="comment-content-top">
+                                                                            <div class="comment-actions">
+                                                                                <h6 class="fn">{{$comment->user->name}}</h6>
+                                                                                <span class="time">{{ date('M d Y', strtotime($comment->created_at)) }} at {{ date('h:i', strtotime($comment->created_at)) }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <button class="btn comment-reply-link ReplyOpen"  id="{{ $comment->id}}"><i class="icofont-reply"></i> Reply</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-text">
+                                                                <p>{{ $comment->comment}}</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        @foreach ($comment->getReply as $reply)
+                                                        <ol class="children">
+                                                            <li class="comment ">
+                                                                <div class="comment-reply-wrap">
+                                                                    <div class="comment-author-info">
+                                                                        <div class="comment-author vcard" style="max-width: 70px">
+                                                                            <img alt="" src="{{$reply->user->getProfile()}}" >
+                                                                        </div>
+                                                                        <div class="comment-content">
+                                                                            <div class="meta">
+                                                                                <div class="comment-content-top">
+                                                                                    <div class="comment-actions">
+                                                                                        <h6 class="fn">{{$reply->user->name}}</h6>
+                                                                                        <span class="time">{{ date('M d Y', strtotime($reply->created_at)) }} at {{ date('h:i', strtotime($reply->created_at)) }}</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comment-text">
+                                                                        <p>{{ $reply->comment}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ol>
+                                                        @endforeach
+                                                      
+                                                        
+                                                        <div class="reply mb-5 mt-2 ShowReply{{$comment->id}}" style="display: none">
+                                                            <div class="section-title ">
+                                                                <h3 class="title">Reply a comment</h3>
+                                                            </div>
+                                                            <div class="row">
+                                                                <form  class="comment-form-area" method="POST" action="{{ route('blog-comment-reply')}}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="blog_comment_id" value="{{$comment->id}}">
+                                                                    <div class="col-lg-12">
+                                                                        <label>Comment *</label>
+                                                                        <div class="single-input">
+                                                                            <textarea name="comment" id="comment" placeholder="Enter your reply comment here......" style="color: black" required ></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <div class="submit-button text-center">
+                                                                            <button class="btn-large btn-primary" type="submit"> Submit Reply<i class="icofont-long-arrow-right"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        @endforeach
+                                                    </li>
+                
+                                                </ol>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="section-title mb-10">
+                                        <h3 class="title">Leave a comment</h3>
+                                    </div>
+                                    <div class="row">
+                                        <form  class="comment-form-area" method="POST" action="{{ route('blog-comment')}}">
+                                            @csrf
+                                            <input type="hidden" name="blog_id" value="{{$articledetail->id}}">
+                                            <div class="col-lg-12">
+                                                <label>Comment *</label>
+                                                <div class="single-input">
+                                                    <textarea name="comment" id="comment" placeholder="Enter your comment here......" style="color: black" required ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="submit-button text-center">
+                                                    <button class="btn-large btn-primary" type="submit"> Submit Now <i class="icofont-long-arrow-right"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
                             </div>
-                            <!-- Comment Area End -->
 
 
                         </div>
                     </div>
                     <!-- blog details Post End -->
                 </div>
-                <div class="blog-details-col-4">
+                <div class="blog-details-col-4 information">
                     <div class="following-author-area">
-                        <div class="author-image">
-                            <img src="assets/images/author/author-01.png" alt="">
+                        <div class="author-image" style="max-width: 100px">
+                            <img src="{{$articledetail->user->getProfile()}}" alt="" loading="lazy">
                         </div>
                         <div class="author-title">
-                            <h4><a href="#">Antonio Lucas</a></h4>
-                            <p>Author, Dingcode</p>
+                            <h4><a href="#">{{ $articledetail->author}}</a></h4>
+                            <p>{{ $articledetail->user->role->name}}</p>
                         </div>
                         <div class="author-details">
                             <p>Lorem psum has been industry standard dumy text since the when and scrambled make specimen book has survived.</p>
 
                             <div class="author-post-share">
                                 <ul class="social-share-area">
-                                    <li><a href="#"><i class="icofont-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icofont-skype"></i></a></li>
-                                    <li><a href="#"><i class="icofont-twitter"></i></a></li>
-                                    <li><a href="#"><i class="icofont-linkedin"></i></a></li>
+                                    @if(!empty($articledetail->user->instagram))
+                                    <li><a target="_blank" href="{{'https://instagram.com/'. $articledetail->user->instagram}}"><i class="icofont-instagram"></i></a></li>
+                                    @endif
+                                    @if(!empty($articledetail->user->linkedin))
+                                    <li><a target="_blank" href="{{'https://linkedin.com/in/'. $articledetail->user->linkedin }}"><i class="icofont-linkedin"></i></a></li>
+                                    @endif
                                 </ul>
                             </div>
 
@@ -303,44 +295,12 @@
                         </div>
                     </div>
 
-                    <!-- Hero Category Area Start -->
-                    <div class="blog-details-category-area mt-5">
-                        <a class="single-hero-category-item">
-                            <img src="assets/images/catagory/technology.jpg" alt="">
-                            <div class="hero-category-inner-box">
-                                <h3 class="title">Business</h3>
-                                <i class="icon icofont-long-arrow-right"></i>
-                            </div>
-                        </a>
-                        <a class="single-hero-category-item">
-                            <img src="assets/images/catagory/travel.jpg" alt="">
-                            <div class="hero-category-inner-box">
-                                <h3 class="title">Travel</h3>
-                                <i class="icon icofont-long-arrow-right"></i>
-                            </div>
-                        </a>
-                        <a class="single-hero-category-item">
-                            <img src="assets/images/catagory/medical.jpg" alt="">
-                            <div class="hero-category-inner-box">
-                                <h3 class="title">Food</h3>
-                                <i class="icon icofont-long-arrow-right"></i>
-                            </div>
-                        </a>
-                        <a class="single-hero-category-item">
-                            <img src="assets/images/catagory/web.jpg" alt="">
-                            <div class="hero-category-inner-box">
-                                <h3 class="title">Tech</h3>
-                                <i class="icon icofont-long-arrow-right"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Hero Category Area End -->
 
                     <!-- Latest Post Area Start -->
                     <div class="latest-post-inner-wrap mt-5">
                         <div class="latest-post-header">
                             <div class="section-title">
-                                <h4>Latest Post</h4>
+                                <h4>Recent Post</h4>
                             </div>
                             <div class="latest-post-slider-navigation">
                                 <div class="latest-post-button-prev navigation-button"><i class="icofont-long-arrow-left"></i></div>
@@ -351,182 +311,41 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <div class="latest-post-box">
+                                        @foreach ($recentpost as $rpost)
                                         <!-- Single Latest Post Start -->
                                         <div class="single-latest-post">
                                             <div class="latest-post-thum">
                                                 <a href="#">
-                                                    <img src="assets/images/latest-post/01.jpg" alt="">
+                                                    @if (!empty($rpost->getImage()))
+                                                    <img src="{{ $rpost->getImage()}}" width="84px" height="84px" style="object-fit: cover" alt="" loading="lazy">
+                                                        
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="latest-post-content">
-                                                <h6 class="title"><a href="#!">All of these amazing
-                                                        features come at...</a>
+                                                <h6 class="title"><a href="{{ route('article.detail', $rpost->slug) }}">{!! Str::limit($rpost->title, 25) !!}</a>
                                                 </h6>
                                                 <div class="latest-post-meta">
                                                     <span class="post-date">
                                                     <i class="icofont-ui-calendar"></i> 
-                                                    <a href="#">03-04-2023</a>
+                                                    <a href="#">{{ $articledetail->created_at->format('d - m - Y') }}</a>
                                                 </span>
                                                     <span>10 min read</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Single Latest Post End -->
-                                        <!-- Single Latest Post Start -->
-                                        <div class="single-latest-post">
-                                            <div class="latest-post-thum">
-                                                <a href="#">
-                                                    <img src="assets/images/latest-post/02.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="latest-post-content">
-                                                <h6 class="title"><a href="#!">Customize your
-                                                        WooCommerce store</a>
-                                                </h6>
-                                                <div class="latest-post-meta">
-                                                    <span class="post-date">
-                                                    <i class="icofont-ui-calendar"></i> 
-                                                    <a href="#">03-04-2023</a>
-                                                </span>
-                                                    <span>10 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Latest Post End -->
-                                        <!-- Single Latest Post Start -->
-                                        <div class="single-latest-post">
-                                            <div class="latest-post-thum">
-                                                <a href="#">
-                                                    <img src="assets/images/latest-post/03.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="latest-post-content">
-                                                <h6 class="title"><a href="#!">With WooLentor's drag
-                                                        -and-drop interface...</a>
-                                                </h6>
-                                                <div class="latest-post-meta">
-                                                    <span class="post-date">
-                                                    <i class="icofont-ui-calendar"></i> 
-                                                    <a href="#">03-04-2023</a>
-                                                </span>
-                                                    <span>10 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Latest Post End -->
-                                        <!-- Single Latest Post Start -->
-                                        <div class="single-latest-post">
-                                            <div class="latest-post-thum">
-                                                <a href="#">
-                                                    <img src="assets/images/latest-post/04.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="latest-post-content">
-                                                <h6 class="title"><a href="#!">All of these amazing
-                                                        features come at...</a>
-                                                </h6>
-                                                <div class="latest-post-meta">
-                                                    <span class="post-date">
-                                                    <i class="icofont-ui-calendar"></i> 
-                                                    <a href="#">03-04-2023</a>
-                                                </span>
-                                                    <span>10 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Latest Post End -->
-                                        <!-- Single Latest Post Start -->
-                                        <div class="single-latest-post">
-                                            <div class="latest-post-thum">
-                                                <a href="#">
-                                                    <img src="assets/images/latest-post/05.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="latest-post-content">
-                                                <h6 class="title"><a href="#!">WooCommerce comes
-                                                        with an intuitive...</a>
-                                                </h6>
-                                                <div class="latest-post-meta">
-                                                    <span class="post-date">
-                                                    <i class="icofont-ui-calendar"></i> 
-                                                    <a href="#">03-04-2023</a>
-                                                </span>
-                                                    <span>10 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Latest Post End -->
+                                        @endforeach
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
+                     
 
                     </div>
                     <!-- Latest Post Area End -->
-
-                    <!-- Stay In Touch Area Start -->
-                    <div class="stay-in-touch-area mt-5">
-                        <div class="section-title">
-                            <h3>Stay In Touch</h3>
-                        </div>
-                        <div class="stay-in-touch-box">
-                            <div class="single-touch-col">
-                                <a href="#!" class="single-touch facebook">
-                                    <div class="touch-socail-icon">
-                                        <i class="icofont-facebook"></i>
-                                    </div>
-                                    <p class="touch-title">5,685K</p>
-                                </a>
-                            </div>
-                            <div class="single-touch-col">
-                                <a href="#!" class="single-touch twitter">
-                                    <div class="touch-socail-icon">
-                                        <i class="icofont-twitter"></i>
-                                    </div>
-                                    <p class="touch-title">6,97K+</p>
-                                </a>
-                            </div>
-                            <div class="single-touch-col">
-                                <a href="#!" class="single-touch behance">
-                                    <div class="touch-socail-icon">
-                                        <i class="icofont-behance"></i>
-                                    </div>
-                                    <p class="touch-title">6,97K+</p>
-                                </a>
-                            </div>
-                            <div class="single-touch-col">
-                                <a href="#!" class="single-touch youtube">
-                                    <div class="touch-socail-icon">
-                                        <i class="icofont-youtube-play"></i>
-                                    </div>
-                                    <p class="touch-title">5,685K</p>
-                                </a>
-                            </div>
-                            <div class="single-touch-col">
-                                <a href="#!" class="single-touch dribbble">
-                                    <div class="touch-socail-icon">
-                                        <i class="icofont-dribbble"></i>
-                                    </div>
-                                    <p class="touch-title">6,97K+</p>
-                                </a>
-                            </div>
-                            <div class="single-touch-col">
-                                <a href="#!" class="single-touch linkedin">
-                                    <div class="touch-socail-icon">
-                                        <i class="icofont-linkedin"></i>
-                                    </div>
-                                    <p class="touch-title">6,97K+</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Stay In Touch Area End -->
-
-                    <div class="following-add-banner mt-5">
-                        <a href="#">
-                            <img src="assets/images/banners/home-following-banner.png" alt="">
-                        </a>
-                    </div>
+                   
                 </div>
             </div>
 
@@ -535,35 +354,16 @@
     <!-- Blog Details Wrapper End -->
 
     <!-- Trending Topic Area Start -->
-    <div class="trending-topic-area bg-gray section-space--ptb_80">
-        <div class="container">
-            <!-- Newsletter Subscribe Area Start -->
-            <div class="newsletter-subscribe-inner section-space--mt_80">
-                <div class="row align-items-center">
-                    <div class="col-lg-3">
-                        <div class="section-title mb-4">
-                            <h3>Subscribe For Newsletter</h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="newsletter-input-box">
-                            <input class="newsletter-input" type="text" placeholder="Enter your email">
-                            <div class="button-box">
-                                <a href="#" class="btn-primary btn-large">Subscribe Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="newsletter-inner-image">
-                    <img class="newsletter-image-01" src="assets/images/shap/1-newsletter.png" alt="">
-                    <img class="newsletter-image-02" src="assets/images/shap/2-newsletter.png" alt="">
-                </div>
-            </div>
-            <!-- Newsletter Subscribe Area End -->
-
-        </div>
-    </div>
-    <!-- Trending Topic Area End -->
+   
 
 </div>
+@endsection
+@section('scripts')
+    <script>
+       $('.ReplyOpen').click(function(){
+        let id = $(this).attr('id');
+        $('.ShowReply').hide(); // Hide all reply forms initially
+        $(this).closest('.comment').find('.ShowReply'+id).show(); // Show the specific reply form
+    });
+    </script>
 @endsection

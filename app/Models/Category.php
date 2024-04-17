@@ -18,6 +18,11 @@ class Category extends Model
     {
         return self::find($id);
     }
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class, 'category_id');
+    }
+
     static public function getRecordCategory(){
         return self::select('categories.*')
         ->where('is_deleted','=','0')
@@ -29,6 +34,22 @@ class Category extends Model
         ->where('is_deleted','=','0')
         ->where('status' ,'=','1')
         ->get();
+    }
+    static public function getCategoryFront(){
+        return self::select('categories.*')
+        ->where('is_deleted', '=', 0)
+        ->where('status', '=', 1)
+        ->distinct()
+        ->get();
+    }
+
+
+    static public function getCategorySlug($slug){
+        return self::select('categories.*')
+        ->where('slug','=', $slug)
+        ->where('is_deleted','=','0')
+        ->where('status' ,'=','1')
+        ->first();
     }
     public function getImage(){
         if(!empty($this->image_file) && file_exists('upload/category/'.$this->image_file)){

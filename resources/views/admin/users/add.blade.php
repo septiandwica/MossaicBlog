@@ -1,4 +1,5 @@
 @extends('admin.layouts.app') @section('contents')
+
 <div class="pagetitle">
     <h1>Add User</h1>
     <nav>

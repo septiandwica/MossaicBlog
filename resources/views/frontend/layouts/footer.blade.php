@@ -6,16 +6,14 @@
                     <div class="footer-widget">
                         <div class="footer-logo">
                             <a href="index.html">
-                                <img
+                                <img width="161px" height="48px"
                                     src="{{ asset('frontend/assets/images/logo/logo-white.png')}}"
                                     alt=""
                                 />
                             </a>
                         </div>
                         <p>
-                            Lorem Ipsum is simply dummy text the
-                            printing and typesetting industry has been
-                            the industry's standard text ever since.
+                            MossaicBlog: Elevate your voice, connect with the world, and cultivate your expertise.
                         </p>
                         <ul class="footer-socail-share">
                             <li>
@@ -52,21 +50,11 @@
                             </div>
                             <ul class="footer-widget-menu-list">
                                 <li>
-                                    <a href="about-us.html">About Us</a>
+                                    <a href="{{route('about')}}">About Us</a>
                                 </li>
-                                <li>
-                                    <a href="contact-us.html"
-                                        >Contact Us</a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="#!">Local Print Ads</a>
-                                </li>
-                                <li><a href="faq.html">FAQ’s</a></li>
-                                <li><a href="#!">Careers</a></li>
                             </ul>
                         </div>
-                        <div class="single-footer-menu">
+                        {{-- <div class="single-footer-menu">
                             <div class="footer-widget-title">
                                 <h4 class="title">Quick Links</h4>
                             </div>
@@ -81,17 +69,23 @@
                                 </li>
                                 <li><a href="#!">Course FAQ’s</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="single-footer-menu">
+                            @php
+                            $getCategoryHead = App\Models\Category:: getActiveCategory()->shuffle()->take(4);
+                            @endphp
                             <div class="footer-widget-title">
                                 <h4 class="title">Category</h4>
                             </div>
                             <ul class="footer-widget-menu-list">
-                                <li><a href="#!">Lefestyle</a></li>
-                                <li><a href="#!">Healthy</a></li>
-                                <li><a href="#!">Restaurent</a></li>
-                                <li><a href="#!">Travel Tips</a></li>
-                                <li><a href="#!">Marketing</a></li>
+                                @foreach ($getCategoryHead as $categoryhead)
+                                <li class="@if(request()->routeIs('category.show', $categoryhead->slug)) active @endif">
+                                    <a href="{{ route('category.show', $categoryhead->slug) }}">
+                                        <span>{{ $categoryhead->name }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                                
                             </ul>
                         </div>
                     </div>
@@ -106,21 +100,31 @@
                     <div class="footer-bottom-inner">
                         <div class="copy-right-text">
                             <p>
-                                © 2021 <a href="#">Bunzo</a>. Made with
+                                © {{ date('Y') }} <a href="{{route('home')}}">MossaicBlog</a>. Made with
                                 ❤️ by
                                 <a
                                     target="_blank"
                                     rel="noopener"
-                                    href="#"
-                                    >Halo</a
+                                    href="https://tiancode.my.id"
+                                    >TIAN WEB CODE</a
                                 >
                             </p>
                         </div>
+                        
                         <div class="button-right-box">
-                            <a href="#!" class="btn-primary btn-large"
-                                >Share your thinking
+                            @if (Route::has('login'))
+                            @auth
+                            <a href="{{route('dashboard/blog/list')}}" class="btn-primary btn-large"
+                                >Start Write
                                 <i class="icofont-long-arrow-right"></i
                             ></a>
+                            @else
+                            <a href="{{route('login')}}" class="btn-primary btn-large"
+                            >Expand Your Writing Skill
+                            <i class="icofont-long-arrow-right"></i
+                            ></a>
+                            @endauth
+                            @endif
                         </div>
                     </div>
                 </div>

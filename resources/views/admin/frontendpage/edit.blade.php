@@ -1,12 +1,18 @@
-@extends('admin.layouts.app') @section('contents')
+@extends('admin.layouts.app')
+@section('styles')
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/tagstyle/bootstrap-tagsinput.css')}}">
+
+@endsection
+@section('contents')
+
 <div class="pagetitle">
-    <h1>Edit User Data</h1>
+    <h1>Edit Page Data</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="{{ route('dashboard')}}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item">Users</li>
+            <li class="breadcrumb-item">Page</li>
             <li class="breadcrumb-item active">Edit</li>
         </ol>
     </nav>
@@ -16,69 +22,71 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Edit User Data</h5>
+                    <h5 class="card-title">Edit Page Data</h5>
 
                     <!-- Vertical Form -->
-                    <form class="row g-3" action="{{ route('dashboard/category/edit', ['id' => $getRecord->id]) }}" method="POST" enctype="multipart/form-data">
-                        {{csrf_field()}}               
+                    <form class="row g-3" action="{{ route('dashboard/frontendpage/edit', ['id' => $getPage->id]) }}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                    
                         <div class="col-12 flex-column">
-                            <label for="inputName4" class="form-label">Name *</label>
-                            <input type="text" value="{{ old('name', $getRecord->name) }}" name="name" class="form-control @error('name') is-invalid @enderror" id="inputName4">
-                            @error('name')
+                            <label for="inputName4" class="form-label">Slug *</label>
+                            <input type="text" name="slug" value="{{ $getPage->slug }}" class="form-control @error('slug') is-invalid @enderror" id="inputName4">
+                            @error('slug')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <hr>
-                        <strong>SEO - Search Engine Optimization</strong>
                         <div class="col-12 flex-column">
-                            <label for="inputName4" class="form-label">Meta Title *</label>
-                            <input type="text" value="{{ old('meta_title', $getRecord->meta_title) }}" name="meta_title" class="form-control @error('meta_title') is-invalid @enderror" id="inputName4">
-                            @error('meta_title')
+                            <label for="inputName4" class="form-label">Title *</label>
+                            <input type="text" name="title" value="{{ $getPage->title }}" class="form-control @error('title') is-invalid @enderror" id="inputName4">
+                            @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="col-12 flex-column">
+                            <label for="inputName4" class="form-label">Meta Title</label>
+                            <input name="meta_tit" class="form-control @error('meta_tit') is-invalid @enderror" id=""  value="{{ $getPage->meta_title }}">
+                            @error('meta_tit')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    
+                    
+                
+                    
+                        <div class="col-12 flex-column">
+                            <label for="inputName4" class="form-label">Description *</label>
+                            <textarea class="tinymce-editor form-control" name="desc" class="form-control @error('desc') is-invalid @enderror">{{ $getPage->description }}</textarea>
+                            @error('desc')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    
+                    
+                    
+                        <!-- Penambahan value pada input meta_desc -->
                         <div class="col-12 flex-column">
                             <label for="inputName4" class="form-label">Meta Description</label>
-                            <textarea name="meta_desc" class="form-control @error('meta_desc') is-invalid @enderror" id="meta_desc" rows="3" style="resize: none;">{{ old('meta_desc', $getRecord->meta_description) }}</textarea>
-                            <p id="meta_desc_chars" class="text-muted mb-0">0 characters (Max: 100)</p>
+                            <textarea name="meta_desc" class="form-control @error('meta_desc') is-invalid @enderror" id="" cols="30" rows="3" style="resize: none;">{{ $getPage->meta_description }}</textarea>
                             @error('meta_desc')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                    
+                        <!-- Penambahan value pada input meta_keys -->
                         <div class="col-12 flex-column">
                             <label for="inputName4" class="form-label">Meta Keywords</label>
-                            <input type="text" name="meta_keys" value="{{ old('meta_keywords', $getRecord->meta_keywords) }}" class="form-control @error('meta_keys') is-invalid @enderror" id="inputName4">
+                            <input type="text" name="meta_keys" value="{{ $getPage->meta_keywords }}" class="form-control @error('meta_keys') is-invalid @enderror" id="inputName4">
                             @error('meta_keys')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12 flex-column">
-                            <label for="inputEmail4" class="form-label">Image Banner</label>
-                            <input type="file" name="image_file" class="form-control @error('image_file') is-invalid @enderror" id="inputEmail4">
-                            <p class="my-2" style="font-size: 12px; color:red;">*Make sure the file is in png format</p>
-                            @error('image_file')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        
-                        <hr>
-                        <div class="col-12 flex-column">
-                            <label for="inputName4" class="form-label">Status *</label>
-                            <select class="form-control @error('status') is-invalid @enderror" name="status" id="">
-                                <option disabled>Set Status</option>
-                                <option {{ ($getRecord->status == 1) ? 'selected' : ''}} value="1">Active</option>
-                                <option {{ ($getRecord->status == 0) ? 'selected' : ''}} value="0">Inactive</option>
-                            </select>
-                            @error('status')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
+                    
                     
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
+                    
                     
 
                 </div>
@@ -86,20 +94,12 @@
         </div>
     </div>
 </section>
+@endsection
+@section('scripts')
+    <script src="{{ asset('admin/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+    <script src="{{ asset('admin/assets/vendor/tagstyle/bootstrap-tagsinput.js')}}"></script>
 
-<script>
-    const metaDesc = document.getElementById('meta_desc');
-const metaDescChars = document.getElementById('meta_desc_chars');
-
-metaDesc.addEventListener('input', function() {
-  const charCount = metaDesc.value.length;
-  metaDescChars.textContent = `${charCount} characters (Max: 100)`;
-
-  if (charCount > 100) {
-    metaDesc.classList.add('is-invalid');
-  } else {
-    metaDesc.classList.remove('is-invalid');
-  }
-});
+    <script type="text/javascript">
+        $("#tagsinput").tagsinput();
     </script>
 @endsection
