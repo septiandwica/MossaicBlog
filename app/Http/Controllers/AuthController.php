@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\auth;
 use Illuminate\Support\Facades\Hash;
 
 
-class authController extends Controller
+class AuthController extends Controller
 {
     public function register(){
         $getPage = FePage::getSlug('Register');
