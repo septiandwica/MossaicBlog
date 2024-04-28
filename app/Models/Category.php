@@ -43,7 +43,6 @@ class Category extends Model
         ->get();
     }
 
-
     static public function getCategorySlug($slug){
         return self::select('categories.*')
         ->where('slug','=', $slug)
