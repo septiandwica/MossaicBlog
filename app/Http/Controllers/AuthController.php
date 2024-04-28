@@ -66,7 +66,7 @@ class AuthController extends Controller
             }
         }
         
-        if (auth::attempt($credentials, $remember)) {
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard')->with('success', 'Login Success');
         } else {
@@ -77,7 +77,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        auth::guard('web')->logout();
+        Auth::guard('web')->logout();
   
         $request->session()->invalidate();
   
