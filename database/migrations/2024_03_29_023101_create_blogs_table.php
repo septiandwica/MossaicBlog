@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->tinyInteger('is_deleted')->default(0);
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

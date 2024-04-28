@@ -113,7 +113,8 @@ class UserController extends Controller
         return redirect()->back()->with("success","Your Account Successfully Updated");
     }
     public function changepassword(){
-        return view("admin.users.profile.account");
+        $data['getUser'] = User::getSingle(Auth::user()->id);
+        return view("admin.users.profile.account", $data);
     }
     public function updatepassword(Request $request){
 
