@@ -22,7 +22,7 @@ composer install
 php artisan key:generate
 ```
 
-4. Prepare the database in MySQL
+4. Prepare the database connection in env (mysql)
 5. Next, Migration and Seeder
 
 ```bash
