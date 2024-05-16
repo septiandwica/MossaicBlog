@@ -9,4 +9,31 @@
 
 ## Installation
 
-HALO
+1. Open the terminal in your root directory of MossaicBlog.
+2. Use the following command to install the composer.
+
+```bash
+composer install
+```
+
+3. Run the following command to generate the key
+
+```bash
+php artisan key:generate
+```
+
+4. Prepare the database in MySQL
+5. Next, Migration and Seeder
+
+```bash
+php artisan migrate --seed
+```
+
+5. To serve the application, you need to run the following command in the project directory
+
+```bash
+php artisan serve
+```
+
+6. Now navigate to the given address, and you will see your application is running.🥳
+
